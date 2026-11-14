@@ -16,14 +16,30 @@ public class Hangman {
         Random random = new Random();
         System.out.println("HANGMAN");
         String result= words.get(random.nextInt(4)); // result випадково обираємо зі списку
-        String result_ekran = result.substring(0, 2);
-        for (int i = 3;   i <= result.length();   i++) {
-            result_ekran=result_ekran+"-";
+        String result_ekran = "";
+        String work_result_ekran = "";
+        // System.out.println(result);
+        for (int f = 1;   f <= result.length();   f++) {result_ekran=result_ekran+"-";}
+
+        for (int j = 1;   j <= 8;   j++)
+        {
+            System.out.println(result_ekran );
+            System.out.print("Input a letter:>");
+            char symbol = scanner.next().charAt(0);
+            //шукаємо індекси входження символу у строку та коригуємо result_ekran
+            for (int i = 0;   i <= (result.length()-1);   i++)
+            {
+                if (result.charAt(i) == symbol) {work_result_ekran=work_result_ekran+symbol ;}
+                else {work_result_ekran=work_result_ekran+result_ekran.charAt(i);}
+            }
+            result_ekran = work_result_ekran;
+            work_result_ekran="";
         }
-        System.out.print("Guess the word " + result_ekran + ":>");
-        String line = scanner.nextLine(); // 3. Считываем строку
-        if (result.equals(line)) {System.out.println("You survived!");}
-           else {System.out.println("You lost!");}
+
+        if (result.equals(result_ekran)) {System.out.println("You survived!");}
+            else {System.out.println("You lost!");}
+
+
         scanner.close();
     }
 }
