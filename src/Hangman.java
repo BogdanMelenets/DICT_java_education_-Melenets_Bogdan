@@ -15,8 +15,12 @@ public class Hangman {
         Scanner scanner = new Scanner(System.in); // 2. Создаем объект Scanner
         Random random = new Random();
         System.out.println("HANGMAN");
-        System.out.print("Guess the word:>");
         String result= words.get(random.nextInt(4)); // result випадково обираємо зі списку
+        String result_ekran = result.substring(0, 2);
+        for (int i = 3;   i <= result.length();   i++) {
+            result_ekran=result_ekran+"-";
+        }
+        System.out.print("Guess the word " + result_ekran + ":>");
         String line = scanner.nextLine(); // 3. Считываем строку
         if (result.equals(line)) {System.out.println("You survived!");}
            else {System.out.println("You lost!");}
