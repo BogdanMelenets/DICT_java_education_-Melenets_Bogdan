@@ -18,25 +18,43 @@ public class Hangman {
         String result= words.get(random.nextInt(4)); // result випадково обираємо зі списку
         String result_ekran = "";
         String work_result_ekran = "";
+        String line = "";
         // System.out.println(result);
         for (int f = 1;   f <= result.length();   f++) {result_ekran=result_ekran+"-";}
-
-        for (int j = 1;   j <= 8;   j++)
+        int rob = 0;
+        int pomilka = 0;
+        do
         {
             System.out.println(result_ekran );
             System.out.print("Input a letter:>");
             char symbol = scanner.next().charAt(0);
-            //шукаємо індекси входження символу у строку та коригуємо result_ekran
-            for (int i = 0;   i <= (result.length()-1);   i++)
+            line="";
+            line=line+symbol;
+            if (result_ekran.contains(line))
             {
-                if (result.charAt(i) == symbol) {work_result_ekran=work_result_ekran+symbol ;}
-                else {work_result_ekran=work_result_ekran+result_ekran.charAt(i);}
-            }
-            result_ekran = work_result_ekran;
-            work_result_ekran="";
-        }
 
-        if (result.equals(result_ekran)) {System.out.println("You survived!");}
+                pomilka++;
+                System.out.println(pomilka);
+            }
+            else
+            {
+                //шукаємо індекси входження символу у строку та коригуємо result_ekran
+                rob=0;
+                for (int i = 0;   i <= (result.length()-1);   i++)
+                {
+                    if (result.charAt(i) == symbol) {work_result_ekran=work_result_ekran+symbol; rob=1;}
+                    else { work_result_ekran=work_result_ekran+result_ekran.charAt(i);}
+                }
+                if (rob==0) {pomilka++;System.out.println(pomilka);
+                              System.out.println("That letter doesn't appear in the word");}
+                result_ekran = work_result_ekran;
+                work_result_ekran="";
+            }
+
+        } while (pomilka < 8);
+
+        if (result.equals(result_ekran)) {System.out.println("You guessed the word!");
+                                          System.out.println("You survived!");}
             else {System.out.println("You lost!");}
 
 
